@@ -1,5 +1,5 @@
 {
-  "name": "23-Ins_Subdoc-Population",
+  "name": "Friendzone-Api",
   "version": "1.0.0",
   "description": "Instructor demo for populating subdocs",
   "main": "index.js",
@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^6.0.13"
+    "mongoose": "^6.0.13",
+    "faker": "^7.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.9"
