@@ -37,7 +37,7 @@ const getUserById = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const dbUserData = await User.create(req.body);
-    res.json(`${dbUserData} has been created`);
+    res.json(`A user named ${dbUserData.username} has been created`);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -53,7 +53,7 @@ const updateUser = async (req, res) => {
     if (!user) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
-      res.json(`${user} has been updated to ${user.username}`);
+      res.json(`Successfully made changes to ${user.username}`);
     }
   } catch (err) {
     res.status(500).json(err);
@@ -66,7 +66,7 @@ const deleteUser = async (req, res) => {
     if (!user) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
-      res.json(`${user} has been deleted!`);
+      res.json(`${user.username} has been deleted!`);
     }
   } catch (err) {
     res.status(500).json(err);
@@ -75,6 +75,7 @@ const deleteUser = async (req, res) => {
 
 const addFriend = async (req, res) => {
   try {
+    const friendToAdd = await User.findOne({ _id: req.params.friendId });
     const user = await User.findOneAndUpdate(
       { _id: req.params.userId },
       { $addToSet: { friends: req.params.friendId } },
@@ -83,7 +84,7 @@ const addFriend = async (req, res) => {
     if (!user) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
-      res.json(`${user.username} now had a new friend!`);
+      res.json(`${friendToAdd.username} is now a friend of ${user.username}!}`);
     }
   } catch (err) {
     res.status(500).json(err);
@@ -92,6 +93,7 @@ const addFriend = async (req, res) => {
 
 const removeFriend = async (req, res) => {
   try {
+    const friendToRemove = await User.findOne({ _id: req.params.friendId });
     const user = await User.findOneAndUpdate(
       { _id: req.params.userId },
       { $pull: { friends: req.params.friendId } },
@@ -100,7 +102,7 @@ const removeFriend = async (req, res) => {
     if (!user) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
-      res.json(`A friend of ${user.username} has been removed}`);
+      res.json(`${friendToRemove.username} is no longer a friend of ${user.username}!}`);
     }
   } catch (err) {
     res.status(500).json(err);
