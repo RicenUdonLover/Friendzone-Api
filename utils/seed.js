@@ -1,8 +1,8 @@
 const faker = require('faker');
 const { User, Thought } = require('../models');
 
-const NUM_USERS = 10;
-const NUM_THOUGHTS = 50;
+const userNum = 10;
+const thoughtNum = 50;
 
 // Generate some fake user data
 const generateUsers = (numUsers) => {
@@ -38,8 +38,8 @@ const seed = async () => {
     await Thought.deleteMany({});
 
     // Generate fake data
-    const users = await User.create(generateUsers(NUM_USERS));
-    const thoughts = await Thought.create(generateThoughts(NUM_THOUGHTS, users));
+    const users = await User.create(generateUsers(userNum));
+    const thoughts = await Thought.create(generateThoughts(thoughtNum, users));
 
     // Add thoughts to users' thoughts array field
     for (let i = 0; i < thoughts.length; i++) {
@@ -48,7 +48,7 @@ const seed = async () => {
       await user.save();
     }
 
-    console.log(`Successfully seeded database with ${NUM_USERS} users and ${NUM_THOUGHTS} thoughts!`);
+    console.log(`Successfully seeded database with ${userNum} users and ${thoughtNum} thoughts!`);
     process.exit(0);
   } catch (err) {
     console.error(err);
