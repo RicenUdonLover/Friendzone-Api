@@ -85,7 +85,7 @@ const createReaction = async (req, res) => {
         if (!reactToThought) {
             res.status(404).json({ message: 'No thought with that ID' });
         } else {
-            res.json(`A reaction has been added to a ${reactToThought.thoughtText}!`);
+            res.json(`A reaction has been added to the thought of '${reactToThought.thoughtText}'!`);
         }
     } catch (err) {
         res.status(500).json(err);
@@ -102,7 +102,7 @@ const deleteReaction = async (req, res) => {
         if (!thought) {
             res.status(404).json({ message: 'No thought with that ID' });
         } else {
-            res.json(`A reaction has been removed from a ${thought.thoughtText}!`);
+            res.json(`A reaction has been removed from the thought of '${thought.thoughtText}'!`);
         }
     } catch (err) {
         res.status(500).json(err);
