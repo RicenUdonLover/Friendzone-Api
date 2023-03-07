@@ -34,6 +34,6 @@ thoughtSchema.virtual('reactionCount')
     return this.reactions.length;
   });
 
-const Thoughts = model('Thought', thoughtSchema);
+const Thought = model('Thought', thoughtSchema);
 
-module.exports = Thoughts;
+module.exports = Thought;
