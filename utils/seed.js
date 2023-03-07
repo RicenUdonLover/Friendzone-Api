@@ -1,8 +1,10 @@
 const faker = require('faker');
+const connection = require('../config/connection');
 const { User, Thought } = require('../models');
 
 const userNum = 10;
 const thoughtNum = 50;
+connection.on('error', (err) => err);
 
 // Generate some fake user data
 const generateUsers = (numUsers) => {
@@ -31,6 +33,7 @@ const generateThoughts = (numThoughts, users) => {
 };
 
 // Seed the database
+
 const seed = async () => {
   try {
     // Delete any existing data
@@ -56,5 +59,7 @@ const seed = async () => {
   }
 };
 
-seed();
+connection.once('open', () => 
+seed()
+);
 

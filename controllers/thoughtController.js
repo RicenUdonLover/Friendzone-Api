@@ -33,7 +33,7 @@ const createThought = async (req, res) => {
         if (!user) {
             res.status(404).json({ message: 'No user with that ID' });
         } else {
-            res.json(newThought);
+            res.json(`${newThought} was created by ${user.username}`);
         }
     } catch (err) {
         res.status(500).json(err);
@@ -50,7 +50,7 @@ const updateThought = async (req, res) => {
         if (!thought) {
             res.status(404).json({ message: 'No thought with that ID' });
         } else {
-            res.json(thought);
+            res.json(`${thought} has been updated!`);
         }
     } catch (err) {
         res.status(500).json(err);
@@ -68,7 +68,7 @@ const deleteThought = async (req, res) => {
                 { $pull: { thoughts: thought._id } },
                 { new: true }
             );
-            res.json(thought);
+            res.json(`${thought} has been deleted!`);
         }
     } catch (err) {
         res.status(500).json(err);
