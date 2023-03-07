@@ -2,7 +2,7 @@ const { Thought, User } = require('../models');
 
 const getAllThoughts = async (req, res) => {
     try {
-        const thoughts = await Thought.find();
+        const thoughts = await Thought.find().select('-__v').sort({ username: 'asc' });
         res.json(thoughts);
     } catch (err) {
         res.status(500).json(err);
@@ -11,7 +11,8 @@ const getAllThoughts = async (req, res) => {
 
 const getThoughtById = async (req, res) => {
     try {
-        const thought = await Thought.findOne({ _id: req.params.thoughtId }).populate('reactions');
+        const thought = await Thought.findOne({ _id: req.params.thoughtId }).select('-__v')
+        .populate('reactions');
         if (!thought) {
             res.status(404).json({ message: 'No thought with that ID' });
         } else {

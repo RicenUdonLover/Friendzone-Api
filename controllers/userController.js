@@ -2,7 +2,7 @@ const User = require('../models/User');
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().sort({ username: 'asc' }).select('-__v');
     res.json(users);
   } catch (err) {
     res.status(500).json(err);
