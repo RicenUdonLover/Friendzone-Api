@@ -28,7 +28,11 @@ const createThought = async (req, res) => {
         const newThought = await Thought.create(req.body);
         const user = await User.findOneAndUpdate(
             { _id: req.body.userId },
-            { $push: { thoughts: { newThought._id, newThought.thoughtText } } },
+            {
+                $push: {
+                    thoughts: newThought._id,
+                }
+            },
             { new: true }
         );
         if (!user) {

@@ -38,16 +38,16 @@ const userSchema = new Schema(
 );
 
 // pre middleware to remove associated thoughts when a user is deleted
-userSchema.pre('remove', function (next) {
-  // Remove all the thought documents that are associated with this user
-  Thought.deleteMany({ username: this.username }, (err) => {
-    if (err) {
-      next(err);
-    } else {
-      next();
-    }
-  });
+userSchema.pre('remove', async function (next) {
+  try {
+    // Remove all the thought documents that are associated with this user
+    await Thought.deleteMany({ username: this.username });
+    next();
+  } catch (err) {
+    next(err);
+  }
 });
+
 
 userSchema.virtual('friendCount')
   .get(function () {
