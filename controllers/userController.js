@@ -37,7 +37,7 @@ const getUserById = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const dbUserData = await User.create(req.body);
-    res.json(`A user named ${dbUserData.username} has been created`);
+    res.json({message: `A user named ${dbUserData.username} has been created`});
   } catch (err) {
     res.status(500).json(err);
   }
@@ -53,7 +53,7 @@ const updateUser = async (req, res) => {
     if (!user) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
-      res.json(`Successfully made changes to ${user.username}`);
+      res.json({message: `Successfully made changes to ${user.username}`});
     }
   } catch (err) {
     res.status(500).json(err);
@@ -66,7 +66,7 @@ const deleteUser = async (req, res) => {
     if (!user) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
-      res.json(`${user.username} has been deleted!`);
+      res.json({message: `${user.username} has been deleted!`});
     }
   } catch (err) {
     res.status(500).json(err);
@@ -84,7 +84,7 @@ const addFriend = async (req, res) => {
     if (!user) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
-      res.json(`${friendToAdd.username} is now a friend of ${user.username}!}`);
+      res.json({message: `${friendToAdd.username} is now a friend of ${user.username}!}`});
     }
   } catch (err) {
     res.status(500).json(err);
@@ -102,7 +102,7 @@ const removeFriend = async (req, res) => {
     if (!user) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
-      res.json(`${friendToRemove.username} is no longer a friend of ${user.username}!}`);
+      res.json({message: `${friendToRemove.username} is no longer a friend of ${user.username}!}`});
     }
   } catch (err) {
     res.status(500).json(err);

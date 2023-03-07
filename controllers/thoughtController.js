@@ -12,7 +12,7 @@ const getAllThoughts = async (req, res) => {
 const getThoughtById = async (req, res) => {
     try {
         const thought = await Thought.findOne({ _id: req.params.thoughtId }).select('-__v')
-        .populate('reactions');
+            .populate('reactions');
         if (!thought) {
             res.status(404).json({ message: 'No thought with that ID' });
         } else {
@@ -28,13 +28,13 @@ const createThought = async (req, res) => {
         const newThought = await Thought.create(req.body);
         const user = await User.findOneAndUpdate(
             { _id: req.body.userId },
-            { $push: { thoughts: newThought._id } },
+            { $push: { thoughts: { newThought._id, newThought.thoughtText } } },
             { new: true }
         );
         if (!user) {
             res.status(404).json({ message: 'No user with that ID' });
         } else {
-            res.json(`${user.username} is thinking: ${newThought.thoughtText}`);
+            res.json({ message: `${user.username} is thinking: ${newThought.thoughtText}` });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -51,7 +51,7 @@ const updateThought = async (req, res) => {
         if (!thoughtToUpdate) {
             res.status(404).json({ message: 'No thought with that ID' });
         } else {
-            res.json(`A thought has been updated!`);
+            res.json({ message: `A thought has been updated!` });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -69,7 +69,7 @@ const deleteThought = async (req, res) => {
                 { $pull: { thoughts: thoughtToDelete._id } },
                 { new: true }
             );
-            res.json(`A thought of "${thoughtToDelete.thoughtText}" has been deleted!`);
+            res.json({ message: `A thought of "${thoughtToDelete.thoughtText}" has been deleted!` });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -86,7 +86,7 @@ const createReaction = async (req, res) => {
         if (!reactToThought) {
             res.status(404).json({ message: 'No thought with that ID' });
         } else {
-            res.json(`A reaction has been added to the thought of '${reactToThought.thoughtText}'!`);
+            res.json({ message: `A reaction has been added to the thought of '${reactToThought.thoughtText}'!` });
         }
     } catch (err) {
         res.status(500).json(err);
@@ -103,7 +103,7 @@ const deleteReaction = async (req, res) => {
         if (!thought) {
             res.status(404).json({ message: 'No thought with that ID' });
         } else {
-            res.json(`A reaction has been removed from the thought of '${thought.thoughtText}'!`);
+            res.json({ message: `A reaction has been removed from the thought of '${thought.thoughtText}'!` });
         }
     } catch (err) {
         res.status(500).json(err);
