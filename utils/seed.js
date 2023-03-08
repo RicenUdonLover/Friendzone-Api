@@ -45,6 +45,7 @@ const seed = async () => {
 
     // Generate fake data
     const users = await User.create(generateUsers(userNum));
+    console.log(users);
     const thoughts = await Thought.create(generateThoughts(thoughtNum, users));
 
     // Add thoughts to users' thoughts array field
