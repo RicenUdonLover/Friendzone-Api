@@ -23,9 +23,12 @@ const generateUsers = (numUsers) => {
 const generateThoughts = (numThoughts, users) => {
   const thoughts = [];
   for (let i = 0; i < numThoughts; i++) {
+    const randomUser = () => users[Math.floor(Math.random() * users.length)];
+    const user = randomUser();
     const thought = new Thought({
       thoughtText: faker.lorem.sentence(),
-      username: users[Math.floor(Math.random() * users.length)].username,
+      username: user.username,
+      userId: user._id,
     });
     thoughts.push(thought);
   }

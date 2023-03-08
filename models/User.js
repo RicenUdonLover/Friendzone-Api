@@ -40,13 +40,13 @@ const userSchema = new Schema(
 // pre middleware to remove associated thoughts when a user is deleted
 userSchema.pre('remove', async function (next) {
   try {
-    // Remove all the thought documents that are associated with this user
-    await Thought.deleteMany({ username: this.username });
+    await Thought.deleteMany({ userId: this._id }).exec();
     next();
   } catch (err) {
     next(err);
   }
 });
+
 
 
 userSchema.virtual('friendCount')

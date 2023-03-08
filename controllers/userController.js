@@ -60,19 +60,21 @@ const updateUser = async (req, res) => {
   }
 };
 
+
 const deleteUser = async (req, res) => {
   try {
-    // const thoughtsToDelete = await Thought.deleteMany({ username: req.params.username });
-    const userToDelete = await User.findOneAndDelete({ _id: req.params.userId });
+    const userToDelete = await User.findOne({ _id: req.params.userId });
     if (!userToDelete) {
       res.status(404).json({ message: 'No user with that ID' });
     } else {
+      await userToDelete.remove();
       res.json({message: `${userToDelete.username} has been deleted!`});
     }
   } catch (err) {
     res.status(500).json(err);
   }
 };
+
 
 const addFriend = async (req, res) => {
   try {
