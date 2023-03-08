@@ -119,6 +119,10 @@ Contributions are welcome! If you find any bugs or would like to suggest a new f
 
 No test is used in this app.
 
+## Demo
+
+A walkthrough video about this project is available at [YouTube](https://youtu.be/fbVGDw3liFI).
+
 ## Questions
 
 For any questions, please contact me at [riceudon@gmail.com](mailto:riceudon@gmail.com). You can also check out my GitHub profile at [https://github.com/RicenUdonLover](https://github.com/RicenUdonLover).
